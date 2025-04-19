@@ -22,10 +22,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(UserMappingProfile));
 
 //dotnet add package Microsoft.EntityFrameworkCore.InMemory
-builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("AppDb"));
+//builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("AppDb"));
 //sql server
-//builder.Services.AddDbContext<AppDbContext>(options =>
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),x => x.MigrationsAssembly("EntityFramework")));
 builder.Services.AddTransient<IAppDbContext, AppDbContext>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IChatService, ChatService>();
