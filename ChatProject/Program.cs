@@ -22,10 +22,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(UserMappingProfile));
 
 //dotnet add package Microsoft.EntityFrameworkCore.InMemory
-//builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("AppDb"));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("AppDb"));
 //sql server
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<AppDbContext>(options =>
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IAppDbContext, AppDbContext>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IChatService, ChatService>();
@@ -110,7 +110,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+});
 }
 
 app.UseHttpsRedirection();
