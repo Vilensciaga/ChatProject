@@ -64,6 +64,16 @@ namespace ChatProject.Controllers
             return CreatedAtAction(nameof(GetUserAsync), mapper.Map<UserDto>(user));
         }
 
+        [HttpPost("trigger")]
+        public async Task<ActionResult<UserDto>> createUserWithTriggerAsync([FromBody] CreateUserDto userDto)
+        {
+            userDto.password = Encryption.EncryptPassword(userDto.password);
+            User user = await repository.CreateUserWithTriggerAsync(userDto);
+
+            return Ok(user);
+
+        }
+
         [Authorize]
         [HttpPut("{id}")]
         //[EnableCors("*")]

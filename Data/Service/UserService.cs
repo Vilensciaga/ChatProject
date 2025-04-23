@@ -1,5 +1,6 @@
 ﻿using Data.Interface;
 using Dto.Models.UserDtos;
+using EntityFramework.Adapter;
 using EntityFramework.Interface;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
@@ -13,11 +14,13 @@ namespace Data.Service
 {
     public class UserService : IUserService
     {
-        public readonly IAppDbContext userDb;
+        private readonly IAppDbContext userDb;
+        private readonly AppDbContext context; 
 
-        public UserService(IAppDbContext userDb)
+        public UserService(IAppDbContext userDb, AppDbContext context)
         {
             this.userDb = userDb;
+            this.context = context;
         }
 
         public async Task<User> CreateUserAsync(CreateUserDto userDto)
@@ -36,6 +39,21 @@ namespace Data.Service
             return newuser;
         }
 
+        public async Task<User> CreateUserWithTriggerAsync(CreateUserDto userDto)
+        {
+            User newuser = new()
+            {
+                FirstName = userDto.firstName,
+                LastName = userDto.lastName,
+                email = userDto.email,
+                password = userDto.password
+            };
+
+
+            await context.Database.ExecuteSqlInterpolatedAsync(
+            $"INSERT INTO Users (firstName, lastName, email, password) VALUES ({newuser.FirstName}, {newuser.LastName}, {newuser.email}, {newuser.password})");
+            return newuser;
+        }
         public async Task DeleteUserAsync(int id)
         {
             var existinguser = await GetUserAsync(id);

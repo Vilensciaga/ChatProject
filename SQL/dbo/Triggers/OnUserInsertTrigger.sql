@@ -3,7 +3,7 @@
 	AFTER INSERT
 	AS
 	BEGIN
-		INSERT INTO TriggerTest(Id, email, ActionDate)
-		SELECT Id, Email, GETDATE()
+		INSERT INTO TriggerTest(email, ActionDate)
+		SELECT Id, email, GETDATE()
     FROM inserted;
 	END

@@ -14,6 +14,7 @@ namespace Data.Interface
         Task<User> GetUserByEmailAsync(string email);
         Task<IEnumerable<User>> GetUsersAsync();
         Task<User> CreateUserAsync(CreateUserDto userDto);
+        Task<User> CreateUserWithTriggerAsync(CreateUserDto userDto);
         Task<UpdateUserDto> UpdateUserAsync(int id, UpdateUserDto userDto);
         Task DeleteUserAsync(int id);
     }
