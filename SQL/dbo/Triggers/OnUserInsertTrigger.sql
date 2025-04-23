@@ -4,6 +4,6 @@
 	AS
 	BEGIN
 		INSERT INTO TriggerTest(email, ActionDate)
-		SELECT Id, email, GETDATE()
+		SELECT email, GETDATE()
     FROM inserted;
 	END
