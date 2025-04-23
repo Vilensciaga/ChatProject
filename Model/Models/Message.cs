@@ -12,5 +12,9 @@ namespace Model.Models
         public int ChatId { get; set; }
         public int MessageId {  get; set; }
         public string message { get; set; }
+        public virtual User User { get; set; }
+
+        public virtual Chat Chat { get; set; }
+        public DateTime date { get; set; }
     }
 }

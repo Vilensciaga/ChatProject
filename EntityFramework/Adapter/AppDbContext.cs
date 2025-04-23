@@ -29,7 +29,37 @@ namespace EntityFramework.Adapter
             return base.SaveChangesAsync(cancellationToken);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.email)
+                .IsUnique();
 
+            //modelBuilder.Entity<User>()
+            //    .HasMany(u => u.Chats)
+            //    .WithMany(u => u.Users);
+
+
+            //modelBuilder.Entity<Message>()
+            //    .HasOne(m => m.User)
+            //    .WithMany(u => u.Messages)
+            //    .HasForeignKey(m => m.id);
+
+
+            //modelBuilder.Entity<Message>()
+            //    .HasOne(m => m.Chat)
+            //    .WithMany(u => u.Messages)
+            //    .HasForeignKey(m => m.ChatId);
+
+
+            //modelBuilder.Entity<Chat>()
+            //    .HasMany(u => u.Users)
+            //    .WithMany(u => u.Chats);
+
+
+
+                
+        }
 
     }
 }
