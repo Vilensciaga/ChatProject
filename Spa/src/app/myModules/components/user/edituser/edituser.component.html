@@ -1,0 +1,24 @@
+<form class="row g-3" *ngIf = "currentUser; else noUser">
+    <div class="col-md-6" >
+         First Name: <input class="form-control" #firstName [value]="currentUser.firstName">
+      </div>
+      <div class="col-md-6">
+        Last Name: <input class="form-control" #lastName [value]="currentUser.lastName">
+      </div>
+    <div class="col-md-6">
+      Email: <input class="form-control" #email [value]="currentUser.email">
+    </div>
+    <!--
+    <div class="col-md-6">
+      Password: <input type="=password" class="form-control" #password [value]="user.password">
+    </div>
+    -->
+   
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" (click)="onClickEdit(firstName.value, lastName.value, email.value)" data-bs-dismiss="modal">Edit User</button>
+    </div>
+  </form>
+
+  <ng-template #noUser>
+    <p>Please select a user</p>
+</ng-template>

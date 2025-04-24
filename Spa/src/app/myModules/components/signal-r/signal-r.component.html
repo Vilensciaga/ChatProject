@@ -1,0 +1,37 @@
+<form class="row g-3" >
+    <div class="col-md-6">
+       userName: <input class="form-control" #userName [value]="" placeholder="vilensciaga">
+    </div>
+    <div class="col-md-6">
+        txtMsg: <input class="form-control" #txtMsg [value]="" placeholder="My text message!">
+     </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary" (click)="sendMessage(userName.value, txtMsg.value)">Send</button>
+    </div>
+
+    <div class="col-md-6"  *ngIf="userIsLoggedIn">
+        <div class="col-md-6" >
+        Send Token: <input class="form-control" #room [value]="" placeholder="room 1!">
+        </div>
+        <br>
+        <div class="col-12" >
+            <button type="submit" class="btn btn-primary" (click)="sendToken(room.value)">Send</button>
+        </div>
+    </div>
+
+    <div class="col-md-6" >
+        <div class="col-md-6">
+            Send Room: <input class="form-control" #roomSetup [value]="" placeholder="room 1!">
+        </div>
+        <br>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary" (click)="sendRoom(roomSetup.value)">Send</button>
+        </div>
+    </div>
+
+
+    
+    
+
+</form> 

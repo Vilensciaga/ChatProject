@@ -1,0 +1,31 @@
+<form class="row g-3">
+ 
+
+    <div class="col-md-6">
+         <!-- First Name: <input class="form-control" #firstName [value]=" ">  -->
+         First Name: <input class="form-control" [(ngModel)] = "firstName" name="firstName"> 
+
+      </div>
+      <div class="col-md-6">
+        <!-- Last Name: <input class="form-control" #lastName [value]=" "> -->
+        Last Name: <input class="form-control" [(ngModel)] = "lastName" name="lastName">
+      </div>
+    <div class="col-md-6">
+      <!-- Email: <input class="form-control" #email [value]=" "> -->
+      Email: <input class="form-control" [(ngModel)] = "email" name="email">
+
+    </div>
+    <div class="col-md-6">
+      <!-- Password: <input type="password" class="form-control" #password [value]=" "> -->
+      Password: <input type="password" class="form-control" [(ngModel)] = "password" name="password">
+
+    </div>
+
+   
+   
+    <div class="col-12">
+      <!-- <button type="submit" class="btn btn-primary" (click)="onClickCreate(firstName.value, lastName.value, email.value, password.value)" data-bs-dismiss="modal">Create Account</button> -->
+      <button type="submit" class="btn btn-primary" (click)="onClickCreate()" data-bs-dismiss="modal">Create Account</button>
+
+    </div>
+  </form>

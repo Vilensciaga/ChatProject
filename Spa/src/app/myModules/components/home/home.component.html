@@ -1,0 +1,119 @@
+<div>
+  <!-- Create User Modal -->
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Create User
+  </button>
+
+
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">{{modalTitle}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <app-createuser (createUser)="createUser($event)"></app-createuser>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div>
+
+
+  <!-- edit a selected user -->
+  <button (click)="editUser()" class="btn btn-primary float-end m-2" data-bs-toggle="modal"
+    data-bs-target="#staticBackdropEdit">Edit User</button>
+
+  <!-- modal for edit user -->
+  <!--Edit User-->
+
+  <div class="modal fade" id="staticBackdropEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">{{modalTitle}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <app-edituser (userEdited)="editUser()" [currentUser]="user">
+          </app-edituser>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- show  list of users -->
+  <h1>User List</h1>
+  <div class="container">
+    <table class="table table-sm">
+      <thead>
+
+        <tr>
+          <th scope=" col">Data</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr>
+
+          <td>
+            <div class="row" *ngIf="users$ | async as users">
+
+              <app-user *ngFor="let user of users ; let i = index" (click)="setRow(i)"
+                [ngClass]="{'highlight': selectedIndex === i}" (userSelected)="userWasSelected($event)" [user]="user">
+              </app-user>
+
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+
+    </table>
+  </div>
+</div>
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<app-signal-r></app-signal-r>
+
+
+<!-- (click)="setRow(i)" [ngClass]="{'highlight': selectedIndex === i}"
+      (userSelected)="userSelected($event)" -->
+
+
+
+

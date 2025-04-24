@@ -123,6 +123,7 @@
     <Folder Include="Security\" />
     <Folder Include="dbo\StoredProcedures" />
     <Folder Include="dbo\Triggers" />
+    <Folder Include="dbo\UserDefinedFunctions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\__EFMigrationsHistory.sql">
@@ -154,5 +155,7 @@
     <Build Include="dbo\StoredProcedures\GetUserByEmail.sql" />
     <Build Include="dbo\Triggers\OnUserInsertTrigger.sql" />
     <Build Include="dbo\Tables\TriggerTest.sql" />
+    <Build Include="dbo\UserDefinedFunctions\GetUserInfoScalar.sql" />
+    <Build Include="dbo\UserDefinedFunctions\GetUserInfoInline.sql" />
   </ItemGroup>
 </Project>
