@@ -4,7 +4,6 @@ import { LandingComponent } from './myModules/components/landing/landing.compone
 import { HomeComponent } from './myModules/components/home/home.component';
 import { AuthguardService } from './myModules/services/authguard.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SignalRComponent } from './myModules/components/signal-r/signal-r.component';
 
 const routes: Routes = [
   {
@@ -15,10 +14,6 @@ const routes: Routes = [
     component: HomeComponent,
     path: "home",
     canActivate: [AuthguardService]
-  },
-  {
-    component: SignalRComponent,
-    path: "sr"
   },
 
 

@@ -3,7 +3,6 @@ import { User } from './myModules/models/user';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from './myModules/services/user.service';
-import { SignalRClientService } from './myModules/SignalRService/signal-rclient.service';
 
 @Component({
   selector: 'app-root',
@@ -14,18 +13,10 @@ export class AppComponent implements OnInit{
   
 
 
-  constructor(private signalRService: SignalRClientService, userSvc:UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    //this.signalRService.startConnection();
-    //this.signalRService.addTransferDataListener();
-    //this.signalRService.addBroadcastDataListener();
-    //this.signalRService.addBroadcastDataUserListener();
     
-
-
-    
-    //this.signalRService.StartRequest();
   }
 
 

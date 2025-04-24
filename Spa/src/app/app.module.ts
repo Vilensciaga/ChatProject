@@ -19,8 +19,6 @@ import { LandingComponent } from './myModules/components/landing/landing.compone
 import { NavbarComponent } from './myModules/components/navbar/navbar.component';
 import { AuthguardService } from './myModules/services/authguard.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SignalRComponent } from './myModules/components/signal-r/signal-r.component';
-import { SignalRClientService } from './myModules/SignalRService/signal-rclient.service';
 import { FirectiveDirective } from './firective.directive';
 
 
@@ -33,7 +31,6 @@ import { FirectiveDirective } from './firective.directive';
     HomeComponent,
     LandingComponent,
     NavbarComponent,
-    SignalRComponent,
     FirectiveDirective,
   
   ],
@@ -47,7 +44,7 @@ import { FirectiveDirective } from './firective.directive';
 
   ],
   //add UserApiService in the providers array
-  providers: [UserService, AuthguardService, SignalRClientService],
+  providers: [UserService, AuthguardService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

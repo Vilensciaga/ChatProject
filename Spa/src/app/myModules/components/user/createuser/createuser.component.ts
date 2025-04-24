@@ -28,7 +28,7 @@ export class CreateuserComponent implements OnInit {
 
   onClickCreate()
   {
-    console.log(this.firstName)
+
     this.user.lastName = this.lastName;
     this.user.firstName = this.firstName;
     this.user.email = this.email;
@@ -36,15 +36,8 @@ export class CreateuserComponent implements OnInit {
 
     
 
-    //this.createUserEmitter.emit({...this.user});
+    this.createUserEmitter.emit({...this.user});
   }
-
-  // onClickCreate()
-  // {
-    
-  //   console.log(this.user.firstName)
-  //   this.createUserEmitter.emit({...this.user});
-  // }
 
 
 }
