@@ -4,6 +4,7 @@ using EntityFramework.Adapter;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFramework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250502002721_AddeUserChatsTable")]
+    partial class AddeUserChatsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,24 +61,6 @@ namespace EntityFramework.Migrations
                     b.HasKey("ChatId");
 
                     b.ToTable("Chats");
-                });
-
-            modelBuilder.Entity("Model.Models.ChatUser", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChatId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("JoinedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("UserId", "ChatId");
-
-                    b.HasIndex("ChatId");
-
-                    b.ToTable("UserChats");
                 });
 
             modelBuilder.Entity("Model.Models.Message", b =>
@@ -150,6 +135,24 @@ namespace EntityFramework.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Model.Models.UserChat", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChatId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("JoinedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserId", "ChatId");
+
+                    b.HasIndex("ChatId");
+
+                    b.ToTable("UserChats");
+                });
+
             modelBuilder.Entity("Model.Models.Administrator", b =>
                 {
                     b.HasOne("Model.Models.User", "User")
@@ -157,25 +160,6 @@ namespace EntityFramework.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Model.Models.ChatUser", b =>
-                {
-                    b.HasOne("Model.Models.Chat", "Chat")
-                        .WithMany("ChatUsers")
-                        .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Model.Models.User", "User")
-                        .WithMany("UserChats")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Chat");
 
                     b.Navigation("User");
                 });
@@ -199,11 +183,30 @@ namespace EntityFramework.Migrations
                     b.Navigation("Sender");
                 });
 
+            modelBuilder.Entity("Model.Models.UserChat", b =>
+                {
+                    b.HasOne("Model.Models.Chat", "Chat")
+                        .WithMany("UserChats")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Model.Models.User", "User")
+                        .WithMany("UserChats")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chat");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Model.Models.Chat", b =>
                 {
-                    b.Navigation("ChatUsers");
-
                     b.Navigation("Messages");
+
+                    b.Navigation("UserChats");
                 });
 
             modelBuilder.Entity("Model.Models.User", b =>

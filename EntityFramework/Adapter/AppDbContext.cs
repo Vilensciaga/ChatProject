@@ -22,6 +22,8 @@ namespace EntityFramework.Adapter
         public DbSet<Message> Messages { get; set; }
         public DbSet<Chat> Chats { get; set; }
 
+        public DbSet<ChatUser> ChatUsers { get; set; }
+
         public DbSet<Administrator> Administrators { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -40,10 +42,36 @@ namespace EntityFramework.Adapter
             //    .WithMany(u => u.Users);
 
 
-            //modelBuilder.Entity<Message>()
-            //    .HasOne(m => m.User)
-            //    .WithMany(u => u.Messages)
-            //    .HasForeignKey(m => m.id);
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Sender)
+                .WithMany(u => u.Messages)
+                .HasForeignKey(m => m.SenderId);
+
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Chat)
+                .WithMany(c => c.Messages)
+                .HasForeignKey(m => m.ChatId);
+
+            modelBuilder.Entity<ChatUser>()
+                .HasKey(uc => new { uc.UserId, uc.ChatId });
+
+            modelBuilder.Entity<ChatUser>()
+                .HasOne(uc => uc.User)
+                .WithMany(u => u.UserChats)
+                .HasForeignKey(uc => uc.UserId);
+
+            modelBuilder.Entity<ChatUser>()
+                .HasOne(uc => uc.Chat)
+                .WithMany(c => c.ChatUsers)
+                .HasForeignKey(uc => uc.ChatId);
+
+            modelBuilder.Entity<ChatUser>()
+                .HasOne(uc => uc.Chat)
+                .WithMany(c => c.ChatUsers)
+                .HasForeignKey(uc => uc.ChatId);
+
+
 
 
             //modelBuilder.Entity<Message>()
@@ -58,7 +86,7 @@ namespace EntityFramework.Adapter
 
 
 
-                
+
         }
 
     }

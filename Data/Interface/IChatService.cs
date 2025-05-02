@@ -11,12 +11,9 @@ namespace Data.Interface
 {
     public interface IChatService
     {
-        Task<Message> GetMessageAsync(int messageId)    ;
-        Task<MessageDto> CreateMessageAsync(MessageDto message) ;
-        Task<IEnumerable<Message>> GetMessagesAsync(int chatId) ;
-        Task<CreateChatDto> CreateChatAsync(CreateChatDto chatDto) ;
-        Task DeleteChatAsync(int chatId) ;
-        Task GetChatAsync(int chatId) ;
+        Task<Chat> CreateChatAsync(IEnumerable<int> userIds, string chatName = null);
+        Task<Chat?> GetChatByIdAsync(int chatId);
+        
 
     }
 }

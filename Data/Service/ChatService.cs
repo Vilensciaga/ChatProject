@@ -1,5 +1,7 @@
 ﻿using Data.Interface;
 using Dto.Models.ChatDtos;
+using EntityFramework.Interface;
+using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using System;
 using System.Collections.Generic;
@@ -11,34 +13,40 @@ namespace Data.Service
 {
     public class ChatService : IChatService
     {
-        public Task<CreateChatDto> CreateChatAsync(CreateChatDto chatDto)
+        private readonly IAppDbContext context;
+        public ChatService(IAppDbContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
 
-        public Task<MessageDto> CreateMessageAsync(MessageDto message)
+        public async Task<Chat> CreateChatAsync(IEnumerable<int> userIds, string chatName = null)
         {
-            throw new NotImplementedException();
+            Chat chat = new Chat
+            {
+                ChatName = chatName,
+                CreatedAt = DateTime.UtcNow,
+                
+            };
+
+            foreach (var userId in userIds)
+            {
+                chat.ChatUsers.Add(new ChatUser { UserId = userId });
+            }
+
+            await context.Chats.AddAsync(chat);
+            await context.SaveChangesAsync();
+            return chat;
         }
 
-        public Task DeleteChatAsync(int chatId)
+        public async Task<Chat?> GetChatByIdAsync(int chatId)
         {
-            throw new NotImplementedException();
+            return await context.Chats
+                .Include(c=> c.Messages)
+                .Include(c=> c.ChatUsers)
+                .ThenInclude(uc=>uc.User)
+                .FirstOrDefaultAsync(c => c.ChatId == chatId);
         }
 
-        public Task GetChatAsync(int chatId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Message> GetMessageAsync(int messageId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Message>> GetMessagesAsync(int chatId)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

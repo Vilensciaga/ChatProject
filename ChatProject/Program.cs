@@ -28,8 +28,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),x => x.MigrationsAssembly("EntityFramework")));
 builder.Services.AddTransient<IAppDbContext, AppDbContext>();
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IChatService, ChatService>();
-
+builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IChatUserService, ChatUserService>();
 
 builder.Services.AddCors(options =>
 {

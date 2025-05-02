@@ -69,11 +69,20 @@ namespace Data.Service
         public async Task<User> GetUserByEmailAsync(string email)
         {
             return await userDb.Users.FirstOrDefaultAsync(p => p.email == email);
+           
         }
 
+        public async Task<int> GetNumberOfUsers()
+        {
+            return await userDb.Users.CountAsync(); 
+        }
+             
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            return await userDb.Users.ToListAsync();
+            //return await userDb.Users.ToListAsync();
+            return await userDb.Users.AsNoTracking()
+                .OrderBy(p => p.FirstName)
+                .ToListAsync();
         }
 
         public async Task<UpdateUserDto> UpdateUserAsync(int id, UpdateUserDto userDto)
